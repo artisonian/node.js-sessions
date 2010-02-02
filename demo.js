@@ -1,6 +1,7 @@
 // Create a server to demo/mockup the session management API
 var http = require('http'),
     sys = require('sys'),
+	url = require('url'),
     Sessions = require('./Sessions');
 
     
@@ -26,7 +27,7 @@ http.createServer(function(req, resp) {
     var history = session.data("history");
     history = history ? history : [];
     
-    history.push(req.uri.path);
+    history.push(url.parse(req.url)["pathname"]);
     
     var ret = "<p> Hi there, here is your browsing history: </p><ul>";
     for(var i=0;i<history.length; ++i){
